@@ -1,0 +1,9 @@
+# all the ds store
+.DS_Store
+# all the venv
+.venv
+
+prompt.md
+project_structure.md
+video-title-links.html
+yt-videos.html
