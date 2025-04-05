@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jérémie Dupré - L'avenir est dans nos bottes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      <div
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <a href="index.html">
+          <div class="text-2xl font-bold">Jérémie Dupré</div>
+        </a>
+
+        <nav>
+          <ul class="flex space-x-4">
+            <li>
+              <a href="index.html" class="hover:text-gray-600">Accueil</a>
+            </li>
+            <li>
+              <a href="le-projet.html" class="hover:text-gray-600">Le projet</a>
+            </li>
+            <li>
+              <a href="les-videos.html" class="hover:text-gray-600"
+                >Les vidéos</a
+              >
+            </li>
+            <!-- <li>
+              <a href="contact.html" class="hover:text-gray-600">Contact</a>
+            </li> -->
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- <main class="pt-20"> -->
+    <main>
+      <!-- Full-width hero image -->
+      <section class="hero-image relative w-full max-w-full overflow-hidden">
+        <div
+          class="w-screen relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw]"
+        >
+          <img
+            src="assets/images/hero-accueil.jpg"
+            alt="Hero Image"
+            class="w-screen max-w-none object-cover"
+            style="height: 700px; width: 100vw"
+          />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center px-4"
+          >
+            <h1
+              class="text-4xl font-bold text-white text-center max-w-4xl mx-auto"
+            >
+              Des vidéos engagées au côté du milieu agricole et rural
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      <!-- Project Overview Section -->
+      <section
+        class="container mx-auto px-4 py-32 grid md:grid-cols-2 gap-8 items-center bg-gray-100"
+      >
+        <img
+          src="assets/images/anigif6.gif"
+          alt="Project Overview"
+          class="w-full rounded-lg shadow-lg"
+        />
+        <div>
+          <h2 class="text-3xl font-bold mb-4">Le Projet</h2>
+          <p class="text-lg">
+            Un projet bénévole engagé pour documenter et soutenir le milieu
+            agricole et rural en Bretagne. Nos vidéos et podcasts explorent les
+            défis et les opportunités du renouvellement agricole.
+          </p>
+          <a
+            href="le-projet.html"
+            class="mt-4 inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+          >
+            En savoir plus
+          </a>
+        </div>
+      </section>
+
+      <!-- Latest Realizations Slider -->
+      <!-- <section class="container mx-auto px-4 py-32" x-data="videoSlider()">
+        <h2 class="text-3xl font-bold mb-8 text-center">
+          Dernières réalisations
+        </h2>
+        <div class="relative">
+          <div class="flex overflow-hidden">
+            <template x-for="(video, index) in videos" :key="index">
+              <div
+                class="w-full flex-shrink-0 px-4"
+                :class="{ 'hidden': currentSlide !== index }"
+              >
+                <a :href="video.link" target="_blank" class="block">
+                  <img
+                    :src="video.image"
+                    :alt="video.title"
+                    class="w-full h-[400px] object-cover rounded-lg"
+                  />
+                  <p
+                    class="mt-4 text-center font-semibold"
+                    x-text="video.title"
+                  ></p>
+                </a>
+              </div>
+            </template>
+          </div>
+          <button
+            @click="prevSlide"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
+          >
+            ←
+          </button>
+          <button
+            @click="nextSlide"
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
+          >
+            →
+          </button>
+        </div>
+      </section> -->
+
+      <!-- Latest Realizations Slider -->
+      <section class="container mx-auto px-4 py-32" x-data="videoSlider()">
+        <h2 class="text-3xl font-bold mb-8 text-center">
+          Dernières réalisations
+        </h2>
+
+        <div class="relative">
+          <div
+            class="flex space-x-4 transition-transform duration-300 ease-in-out"
+          >
+            <template x-for="(video, index) in visibleVideos" :key="index">
+              <div class="w-1/3 flex-shrink-0 px-2">
+                <a :href="video.link" target="_blank" class="block group">
+                  <div class="relative overflow-hidden rounded-lg">
+                    <img
+                      :src="video.image"
+                      :alt="video.title"
+                      class="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+                    ></div>
+                  </div>
+                  <p
+                    class="mt-4 text-center font-semibold text-gray-800"
+                    x-text="video.title"
+                  ></p>
+                </a>
+              </div>
+            </template>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <button
+            @click="prevSlide"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 hover:bg-opacity-75 text-white p-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+
+          <button
+            @click="nextSlide"
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 hover:bg-opacity-75 text-white p-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Project Description Section -->
+      <section
+        class="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-8 items-center bg-gray-100"
+      >
+        <img
+          src="assets/images/logo.png"
+          alt="Logo"
+          class="w-full max-w-xs mx-auto"
+        />
+        <div>
+          <h2 class="text-3xl font-bold mb-4">L'avenir est dans nos bottes</h2>
+          <p class="text-lg mb-4">
+            Des vidéos et podcasts pour des fermes nombreuses en Bretagne
+          </p>
+          <a
+            href="https://www.youtube.com/channel/UCuqAVncL1fJwG53CzJ_Zfcw"
+            class="inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+          >
+            📺 Regarder sur YouTube
+          </a>
+          <a
+            href="https://soundcloud.com/avenirdansnosbottes"
+            class="inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+          >
+            🎧 Ecouter en podcast
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-black text-white py-8">
+      <div class="container mx-auto px-4 text-center">
+        <p class="mb-4">Jérémie Dupré, vidéaste basé en Côtes d'Armor</p>
+        <div class="flex justify-center space-x-4">
+          <a
+            href="https://www.youtube.com/@couedon.audiovisuel"
+            target="_blank"
+            class="text-2xl"
+            >YouTube</a
+          >
+          <a
+            href="https://www.facebook.com/lavenirestdansnosbottes/"
+            target="_blank"
+            class="text-2xl"
+            >Facebook</a
+          >
+          <a
+            href="https://soundcloud.com/avenirdansnosbottes"
+            target="_blank"
+            class="text-2xl"
+            >SoundCloud</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
