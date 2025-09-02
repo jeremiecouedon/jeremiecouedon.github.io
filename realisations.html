@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Réalisations - Jérémie Couédon</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+      <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body class="bg-gray-50 text-gray-900"
+    x-data="videoGallery()"
+    x-init="loadVideos()"
+  >
+    <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      <div
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <a href="index.html">
+          <div class="text-2xl font-bold">Jérémie Couédon</div>
+        </a>
+        <nav>
+          <ul class="flex space-x-4 items-center">
+            <li>
+              <a
+                href="index.html"
+                class="hover:underline hover:text-gray-600"
+                >Accueil</a
+              >
+            </li>
+            <li class="text-gray-400">|</li>
+            <li>
+              <a
+                href="realisations.html"
+                class="underline hover:underline hover:text-gray-600"
+                >Réalisations</a
+              >
+            </li>
+            <li class="text-gray-400">|</li>
+            <li>
+              <a
+                href="l-avenir-est-dans-nos-bottes.html"
+                class="hover:underline hover:text-gray-600"
+                >L'avenir est dans nos bottes</a
+              >
+            </li>
+            <!-- <li class="text-gray-400">|</li>
+            <li>
+              <a
+                href="les-videos.html"
+                class="hover:underline hover:text-gray-600"
+                >Les vidéos</a
+              >
+            </li>
+          </ul> -->
+        </nav>
+      </div>
+    </header>
+
+    <!-- <main class="pt-20"> -->
+    <main>
+      <!-- Full-width hero image -->
+      <section class="hero-image relative w-full max-w-full overflow-hidden">
+        <div
+          class="w-screen relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw]"
+        >
+          <img
+            src="assets/images/hero-accueil.jpg"
+            alt="Hero Image"
+            class="w-screen max-w-none object-cover"
+            style="height: 700px; width: 100vw"
+          />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center px-4"
+          >
+            <h1
+              class="text-4xl font-bold text-white text-center max-w-4xl mx-auto"
+            >
+              Des vidéos et podcasts pour des fermes nombreuses en Bretagne
+            </h1>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Project Overview Section -->
+    <section
+      class="container mx-auto px-4 py-32 grid md:grid-cols-2 gap-8 items-center bg-gray-100"
+    >
+      <img
+        src="assets/images/anigif6.gif"
+        alt="Project Overview"
+        class="w-full rounded-lg shadow-lg"
+      />
+      <div>
+        <h2 class="text-3xl font-bold mb-4">Écoute et Créativité</h2>
+        <p class="text-lg mb-4">
+        Deux maîtres mots pour parler de mon travail de vidéaste.<br>
+        Retranscrire les idées et les envies en images animées : telle est la puissance de la vidéo.<br>
+        Pour y parvenir, une attention toute particulière est portée à l'écriture du scénario.<br>
+        La créativité sublime le tout !
+        </p>
+        <a
+          href="le-projet.html"
+          class="mt-4 inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+        >
+          En savoir plus
+        </a>
+      </div>
+    </section>
+
+      <!-- Video Gallery Section -->
+      <section class="container mx-auto px-16 py-16">
+        <h2 class="text-3xl font-bold mb-6 text-center">Réalisations</h2>
+        <p class="text-lg text-center mb-10">
+          Retrouvez ci-dessous un lien vers chacune des vidéos.<br>
+          Pour voir l'ensemble des vidéos, rendez-vous sur&nbsp;
+          <a href="https://www.youtube.com/@lavenirestdansnosbottes" target="_blank" class="underline text-blue-700 hover:text-blue-900">la chaîne YouTube de Couédon audiovisuel</a>.
+        </p>
+
+        <!-- Pagination TOP -->
+        <div class="flex flex-col items-center mb-10" x-show="totalPages > 1">
+          <div class="mb-2 text-gray-700 font-medium">Changer de page :</div>
+          <nav aria-label="Pagination">
+            <ul class="flex space-x-2">
+              <template x-for="page in totalPages" :key="page">
+                <li>
+                  <button
+                    @click="currentPage = page"
+                    :class="currentPage === page ? 'bg-black text-white border-2 border-black' : 'bg-gray-200 text-gray-700 border border-gray-300'"
+                    class="px-4 py-2 rounded font-bold shadow-sm transition-colors duration-150"
+                    x-text="page"
+                  ></button>
+                </li>
+              </template>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16">
+          <template x-for="video in paginatedVideos" :key="video.video_id">
+            <div
+              class="video-card opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+              x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0')"
+            >
+              <a :href="video.youtube_link" target="_blank" class="block group">
+                <div class="aspect-w-16 aspect-h-9 relative">
+                  <img
+                    :src="'https://img.youtube.com/vi/' + video.video_id + '/mqdefault.jpg'"
+                    :alt="video.title"
+                    class="inset-0 w-full h-full object-cover rounded-lg shadow-lg group-hover:opacity-80 transition-opacity"
+                  />
+                </div>
+                <p
+                class="mt-4 text-center font-semibold text-lg h-14 flex items-center justify-center"
+                  x-text="video.title"
+                ></p>
+              </a>
+            </div>
+          </template>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="bg-black text-white py-8">
+      <div class="container mx-auto px-4 text-center">
+        <p class="mb-4">Jérémie Couédon, vidéaste basé en Côtes d'Armor</p>
+        <div class="flex justify-center space-x-4 mb-4">
+          <a
+            href="https://www.youtube.com/@couedon.audiovisuel"
+            target="_blank"
+            class="text-xl"
+            >YouTube</a
+          >
+          <!-- <a
+        href="https://www.facebook.com/lavenirestdansnosbottes/"
+        target="_blank"
+        class="text-xl"
+        >Facebook</a
+      > -->
+          <a
+            href="https://soundcloud.com/avenirdansnosbottes"
+            target="_blank"
+            class="text-xl"
+            >SoundCloud</a
+          >
+        </div>
+        <p class="text-sm mt-4">
+          Photographies - tous droits réservés :
+          <a
+            href="https://cecileballon.com/"
+            target="_blank"
+            class="underline hover:text-gray-300"
+          >
+            Cécile Ballon
+          </a>
+        </p>
+        <div class="mt-4">
+          <a
+            href="mentions-legales.html"
+            class="text-sm underline hover:text-gray-300"
+            >Mentions légales</a
+          >
+        </div>
+      </div>
+    </footer>
+      <script>
+      function videoGallery() {
+        return {
+          videos: [],
+          currentPage: 1,
+          videosPerPage: 6,
+          totalPages: 0,
+
+          async loadVideos() {
+            try {
+              console.log(
+                "Current working directory:",
+                window.location.pathname
+              );
+              const response = await fetch("./assets/data/jcaudiovisuel-videos.json");
+
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              const data = await response.json();
+              console.log("Loaded videos:", data.videos);
+
+              this.videos = data.videos.map((video) => ({
+                ...video,
+                fullImagePath: `./assets/images/videos/${video.thumbnail}`,
+              }));
+              this.totalPages = Math.ceil(
+                this.videos.length / this.videosPerPage
+              );
+
+              // Log full image paths for debugging
+              this.videos.forEach((video) => {
+                console.log(
+                  `Debugging image path for video ${video.video_id}:`,
+                  video.fullImagePath
+                );
+              });
+            } catch (error) {
+              console.error("Error loading videos:", error);
+            }
+          },
+
+          handleImageError(event) {
+            console.error("Image load error:", event.target.src);
+            // Optional: Add a fallback image
+            event.target.src = "./assets/images/placeholder.jpg";
+            event.target.classList.add("opacity-50");
+          },
+
+          get paginatedVideos() {
+            const start = (this.currentPage - 1) * this.videosPerPage;
+            const end = start + this.videosPerPage;
+            return this.videos.slice(start, end);
+          },
+        };
+      }
+    </script>
+  </body>
+</html>
